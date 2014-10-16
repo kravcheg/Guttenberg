@@ -21,7 +21,7 @@ if(!fileName) {
     throw Error('A file to watch must be specified!');
 }
 
-server.listen('/tmp/watcher.sock', function (){
+server.listen('tmp/watcher.sock', function (){
     console.log ('listeninig for subscribers');
 });
 
