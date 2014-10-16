@@ -1,0 +1,10 @@
+{
+  "name": "book-tools",
+  "version": "0.1.0",
+  "description": "ebooks db",
+  "author": "me",
+  "dependencies": {
+    "cheerio": "^0.17.0",
+    "request": "^2.45.0"
+  }
+}
