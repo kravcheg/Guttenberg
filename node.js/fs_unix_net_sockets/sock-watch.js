@@ -6,7 +6,7 @@ fileName = process.argv[2],
 server = net.createServer(function (connection){
     console.log ('suscriber connected');
     connection.write('watching ' + fileName + ' for changes')  ;
-    let watcher = fs.watch(fileName, function () {
+    var watcher = fs.watch(fileName, function () {
         connection.write('watched file  ' + fileName + ' chsnged at '  + Date.now() + '\r\n ')  ;
     });
 
@@ -21,7 +21,7 @@ if(!fileName) {
     throw Error('A file to watch must be specified!');
 }
 
-server.listen('/cygdrive/c/tmp/watcher.sock', function (){
+server.listen('/tmp/watcher.sock', function (){
     console.log ('listeninig for subscribers');
 });
 
