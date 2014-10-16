@@ -1,13 +1,12 @@
 'use strict';
 
 const fs = require('fs'),
-moment = require ('moment'),
 net = require ('net'),
 fileName = process.argv[2],
 server = net.createServer(function (connection){
     console.log ('suscriber connected');
     connection.write('watching ' + fileName + ' for changes')  ;
-    let watcher = fs.watch(fileName, function () {
+    var watcher = fs.watch(fileName, function () {
         connection.write('watched file  ' + fileName + ' chsnged at '  + Date.now() + '\r\n ')  ;
     });
 
