@@ -1,6 +1,6 @@
 const fs = require ('fs');
 
-fs.watch('target.txt' , function (){
+fs.watch('bober' , function (){
     console.log ("file taget pwned");
 });
 console.log ('hello node' );
