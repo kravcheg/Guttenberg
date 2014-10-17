@@ -5,7 +5,7 @@ fs = require("fs"),
 cheerio = require("cheerio") ;
 
 module.exports =
-    function (file, callback){
+    function (filename, callback){
         fs.readFile (filename ,  function (err, data){
             if (err) {
                 return callback (err) ;
