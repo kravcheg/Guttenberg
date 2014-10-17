@@ -4,7 +4,7 @@
   "description": "ebooks db",
   "author": "me",
   "dependencies": {
-    "cheerio": "^0.17.0",
-    "request": "^2.45.0"
+    "cheerio": "~0.17.0",
+    "request": "~2.45.0"
   }
 }
