@@ -1,7 +1,4 @@
-#!/bin/sh
-':' //; exec "$(command -v nodejs || command -v no^Z^Z^Z)" "$0" "$@"
-
-'use strict' ;
+'use strict';
 
 const
     async  = require ('async'),
