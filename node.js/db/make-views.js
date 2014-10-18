@@ -1,19 +1,14 @@
-<<<<<<< HEAD
-'use strict';
-=======
-#!/usr/bin/env node --harmony
 'use strict';
 
 const async = require('async'),
     request = require('request'),
     views = require('./lib/views.js');
->>>>>>> 422082f0ee6ec2198ada27251d3b6fa70c6aaa6e
 
 async.waterfall([
 
     //get the existing design doc, if present
     function(next) {
-        request.get('http://admin:123@localhost:5984/books/_design/books', next);
+        request.get('http://admin:abc123@localhost:5984/books/_design/books', next);
     },
 
     //create a new design or use existing
@@ -32,7 +27,7 @@ async.waterfall([
 
         request({
             method: 'PUT',
-            url: 'http://admin:123@localhost:5984/books/_design/books',
+            url: 'http://admin:abc123@localhost:5984/books/_design/books',
             json: doc
         }, next);
     }
@@ -40,3 +35,4 @@ async.waterfall([
     if(err) throw err;
     console.log(res.statusCode, body);
 });
+
