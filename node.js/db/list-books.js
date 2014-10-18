@@ -1,13 +1,12 @@
-#!/bin/sh
-':' //; exec "$(command -v nodejs || command -v no^Z^Z^Z)" "$0" "$@"
+'use strict';
 
 const
     file = require ('file'),
     rdfParser = require ('./lib/rdf-parser.js');
-console.log ('begin crawl directory') ;
+console.log ('begin crawl directory  '+ __dirname ) ;
 
 var cnt = 1 ;
-file.walk(__dirname + '../../cache', function (err, dirPath, dirs, files) {
+file.walk('../../cache', function (err, dirPath, dirs, files) {
 
     files.forEach(function (path) {
         rdfParser(path, function (err, doc) {
