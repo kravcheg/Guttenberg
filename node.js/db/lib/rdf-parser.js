@@ -3,21 +3,23 @@
 const fs = require('fs'),
     cheerio = require('cheerio');
 
-module.exports = function(filename, callback) {
-    fs.readFile(filename, function(err, data) {
-        if(err) { return callback(err); }
+module.exports = function (filename, callback) {
+    fs.readFile(filename, function (err, data) {
+        if (err) {
+            return callback(err);
+        }
 
         var $ = cheerio.load(data.toString()),
-            _map = function(items, mapper) {
+            _map = function (items, mapper) {
                 var rv = [];
 
-                items.each(function(i, elem) {
+                items.each(function (i, elem) {
                     rv.push(mapper(elem));
                 });
 
                 return rv;
             },
-            collect = function(index, elem) {
+            collect = function (index, elem) {
                 var rv = $(elem).text();
                 return rv;
             },
@@ -26,15 +28,15 @@ module.exports = function(filename, callback) {
         var doc = {
             _id: $('pgterms\\:ebook').attr('rdf:about').replace('ebooks/', ''),
             title: $('dcterms\\:title').text(),
-            authors: _map(authors, function(elem) {
+            authors: _map(authors, function (elem) {
                 return $(elem).text();
             }),
-            subjects: _map(subjects, function(elem) {
+            subjects: _map(subjects, function (elem) {
                 return $(elem).find('rdf\\:value').text();
             })
         };
 
-        if(doc._id === undefined)
+        if (doc._id === undefined)
             callback("something went wrong");
         else
             callback(null, doc);
