@@ -4,7 +4,7 @@ const
     app = express();
 
 
-    app.use(express.logger('dev'));
+   // app.use(express.logger('dev'));
 
 
     app.get('/api/:name', function(req, res) {
