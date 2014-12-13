@@ -1,20 +1,21 @@
+#!/usr/bin/env node --harmony
 'use strict';
 const
     express = require('express'),
-    morgan = require('morgan'),
-   // logger = morgan('combined'),
+    logger = require ('morgan'),
     app = express();
 
+const config = {
+    bookdb: 'http://localhost:5984/books/',
+    b4db: 'http://localhost:5984/b4/'
+};
 
-   /// app.use(express.logger('dev'));
 
-    app.use(morgan('combined'));
-    app.get('/api/:name', function(req, res) {
-        //res.json(200, { "hello": req.params.name });
-        res.status(200).json({ "preved": req.params.name });
-    });
-    app.listen(3000, function(){
-        console.log("express ready captain.");
-});/**
- * Created by I048692 on 11/21/14.
- */
+app.use(logger('dev'));
+require('./lib/book-search.js')(config, app);
+require('./lib/field-search.js')(config, app);
+require('./lib/bundle.js')(config, app);
+
+app.listen(3000, function(){
+    console.log("ready captain.");
+});
