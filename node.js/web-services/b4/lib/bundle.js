@@ -87,7 +87,7 @@ module.exports = function(config, app) {
             put = Q.denodeify(request.put);
 
         Q.async(function* (){
-            let args, couchRes, bundle, book;
+            let args, couchRes, bundle, book,
 
             // grab the bundle from the b4 database
             args = yield get(config.b4db + req.params.id);
