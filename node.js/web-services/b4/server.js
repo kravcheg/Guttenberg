@@ -10,7 +10,7 @@ const
     app = express(),
 
     redisClient = require('redis').createClient(),
-    RedisStore = require('connect-redis')(express),
+    RedisStore = require('connect-redis')(session),
 
     GoogleStrategy = require('passport-google').Strategy;
 
