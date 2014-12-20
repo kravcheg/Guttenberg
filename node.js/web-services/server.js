@@ -1,10 +1,24 @@
+#!/usr/bin/env node --harmony
+'use strict';
 const
-	http = require('http'),
-	server = http.createServer(function(req, res) {
-		res.writeHead(200, {'Content-Type': 'text/plain'});
-		res.end('Hello World\n');
-	});
+    express = require('express'),
+    redisClient = require('redis').createClient(),
+    RedisStore = require('connect-redis')(express),
+    app = express();
 
-server.listen(3000, function(){
-	console.log('ready captain!');
+//app.use(express.logger('dev'));
+app.use(express.cookieParser());
+app.use(express.session({
+    secret: 'unguessable',
+    store: new RedisStore({
+        client: redisClient
+    })
+}));
+
+app.get('/api/:name', function(req, res) {
+    res.json(200, { "hello": req.params.name });
+});
+
+app.listen(3000, function(){
+    console.log("ready captain.");
 });
