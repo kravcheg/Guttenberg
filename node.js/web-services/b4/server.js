@@ -7,6 +7,7 @@ const
     express = require('express'),
     passport = require('passport'),
     cookieParser = require('cookie-parser'),
+    session = require('express-session'),
     app = express(),
 
     redisClient = require('redis').createClient(),
