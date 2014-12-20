@@ -4,15 +4,15 @@ const
     log = require('npmlog'),
     logger = require ('morgan'),
     request = require('request'),
-    express = require('express'),
     passport = require('passport'),
-    cookieParser = require('cookie-parser'),
-    session = require('express-session'),
-    app = express(),
+    express = require('express'),
+    session = require('express-session');
 
+const
     redisClient = require('redis').createClient(),
     RedisStore = require('connect-redis')(session),
-
+    cookieParser = require('cookie-parser'),
+    app = express(),
     GoogleStrategy = require('passport-google').Strategy;
 
 redisClient
