@@ -6,6 +6,7 @@ const
     request = require('request'),
     express = require('express'),
     passport = require('passport'),
+    cookieParser = require('cookie-parser'),
     app = express(),
 
     redisClient = require('redis').createClient(),
@@ -34,7 +35,7 @@ passport.use(new GoogleStrategy({
 ));
 
 app.use(logger('dev'));
-app.use(express.cookieParser());
+app.use(cookieParser());
 app.use(express.session({
     secret: 'unguessable',
     store: new RedisStore({
