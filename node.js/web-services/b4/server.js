@@ -1,4 +1,5 @@
 'use strict';
+
 const
 
     log = require('npmlog'),
@@ -6,7 +7,8 @@ const
     request = require('request'),
     passport = require('passport'),
     express = require('express'),
-    session = require('express-session');
+    session = require('express-session'),
+    json = require ('express-json') ;   
 
 const
     redisClient = require('redis').createClient(),
@@ -18,7 +20,8 @@ const
 redisClient
     .on('ready', function() { log.info('REDIS', 'ready'); })
     .on('error', function(err) { log.error('REDIS', err.message); });
-
+    
+    
 passport.serializeUser(function(user, done) {
     done(null, user.identifier);
 });
@@ -35,18 +38,22 @@ passport.use(new GoogleStrategy({
     }
 ));
 
-app.use(logger('dev'));
-app.use(cookieParser());
-app.use(express.session({
+ app.use(logger('dev'));   
+app.use(cookieParser());    
+    
+app.use(session({
     secret: 'unguessable',
     store: new RedisStore({
         client: redisClient
     })
 }));
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/static'));
 app.use(express.static(__dirname + '/bower_components'));
+
 
 const config = {
     bookdb: 'http://localhost:5984/books/',
@@ -63,6 +70,8 @@ app.get('/auth/logout', function(req, res){
     req.logout();
     res.redirect('/');
 });
+
+
 
 const authed = function(req, res, next) {
     if (req.isAuthenticated()) {
@@ -84,6 +93,7 @@ app.get('/api/user', authed, function(req, res){
     res.json(req.user);
 });
 
+
 app.get('/api/user/bundles', authed, function(req, res) {
     let userURL = config.b4db + encodeURIComponent(req.user.identifier);
     request(userURL, function(err, couchRes, body) {
@@ -97,7 +107,7 @@ app.get('/api/user/bundles', authed, function(req, res) {
     });
 });
 
-app.put('/api/user/bundles', [authed, express.json()], function(req, res) {
+app.put('/api/user/bundles', [authed, json()], function(req, res) {
     let userURL = config.b4db + encodeURIComponent(req.user.identifier);
     request(userURL, function(err, couchRes, body) {
         if (err) {
@@ -118,3 +128,4 @@ app.put('/api/user/bundles', [authed, express.json()], function(req, res) {
 app.listen(3000, function(){
     console.log("ready captain.");
 });
+
